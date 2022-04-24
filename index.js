@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const {connection} = require('./database/database');
 const routesConnections = require('./categories/categoriesController');
 const routesArticles = require('./articles/articlesController');
+const Article = require('./articles/article');
+const Category = require('./categories/category');
+
 const app = express();
 
 //Definindo view engine
