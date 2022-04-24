@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const {connection} = require('./database/database');
+const routesConnections = require('./categories/categoriesController');
+const routesArticles = require('./articles/articlesController');
 const app = express();
 
 //Definindo view engine
@@ -15,8 +17,12 @@ app.use(bodyParser.json());
 
 //conexão com banco de dados
 connection.authenticate()
-    .then(()=>console.log('database connected'))
-    .catch((e)=>console.log(e));
+.then(()=>console.log('database connected'))
+.catch((e)=>console.log(e));
+
+//Rotas secundárias
+app.use('/', routesConnections);
+app.use('/', routesArticles);
 
 //Rota principal
 app.get('/', (req,res)=>{
