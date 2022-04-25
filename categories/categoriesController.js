@@ -4,7 +4,14 @@ const slugify = require('slugify');
 const router = Router();
 
 router.get('/admin/categories', (req,res)=>{
-    res.render('admin/categories/index.ejs');
+
+    Category.findAll()
+        .then((data)=>{
+            res.render('admin/categories/index.ejs', {
+                data:data
+            });
+        })
+
 });
 
 router.get('/admin/categories/new', (req,res)=>{

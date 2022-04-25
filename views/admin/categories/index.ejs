@@ -1,11 +1,34 @@
 <%- include('../../partials/header.ejs'); %>
 <%- include('../../partials/navBar.ejs'); %>
-
 <body>
     <div class="container">
         <hr>
         <h2>Categories</h2>
+        <a href="/admin/categories/new" class="btn btn-success">Cria nova categoria</a>
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Slug</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(d=>{ %>
+                    <tr>
+                        <td><%= d.id %></td>
+                        <td><%= d.title %></td>
+                        <td><%= d.slug %></td>
+                        <td>
+                            <button class="btn btn-warning">Editar</button>
+                            <button class="btn btn-danger">Deletar</button>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
     </div>
 </body>
-
 <%- include('../../partials/footer.ejs'); %>
