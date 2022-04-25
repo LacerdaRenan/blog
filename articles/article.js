@@ -1,5 +1,5 @@
 const {connection, Sequilize} = require('../database/database');
-const Category = require('../categories/category');
+const categories = require('../categories/category');
 
 //Criando uma tabela, se não existir
 const Article = connection.define('articles',{
@@ -16,10 +16,9 @@ const Article = connection.define('articles',{
         allowNull:false
     }
 });
-//1 para muitos
-Category.hasMany(Article);
 
 //pertence a
+categories.hasMany(Article);
 //Article.belongsTo(Category);
 
 //Sincronizando com banco de dados
