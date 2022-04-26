@@ -3,7 +3,7 @@
 <body>
     <div class="container">
         <hr>
-        <h2>Categories</h2>
+        <h2>Categorias</h2>
         <a href="/admin/categories/new" class="btn btn-success">Cria nova categoria</a>
         <hr>
         <table class="table table-bordered">
@@ -23,7 +23,11 @@
                         <td><%= d.slug %></td>
                         <td>
                             <button class="btn btn-warning">Editar</button>
-                            <button class="btn btn-danger">Deletar</button>
+                            
+                            <form id="deleteCategory" style="display: inline;" method="POST" action="/admin/categories/delete">
+                                <input type="hidden" name="id" value="<%= d.id %>" >
+                                <button class="btn btn-danger">X</button>
+                            </form>
                         </td>
                     </tr>
                 <% }) %>
@@ -31,4 +35,5 @@
         </table>
     </div>
 </body>
+<script src="/js/categories.js"></script>
 <%- include('../../partials/footer.ejs'); %>
