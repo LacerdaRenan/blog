@@ -24,8 +24,6 @@
                         <td><%= a.slug %></td>
                         <td><%= a.category.title %></td>
                         <td>
-                            <a href="/admin/articles/edit/<%= a.id %>" class="btn btn-warning">Editar</a>
-                            
                             <form class="deleteAny" style="display: inline;" method="POST" action="/admin/articles/delete">
                                 <input type="hidden" name="id" value="<%= a.id %>" >
                                 <button class="btn btn-danger">X</button>
@@ -37,5 +35,5 @@
         </table>
     </div>
 </body>
-<script src="/js/preventDelete.js"></script>
+<script src="/js/preventDeleteForm.js"></script>
 <%- include('../../partials/footer.ejs'); %>

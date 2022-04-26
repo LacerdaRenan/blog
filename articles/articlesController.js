@@ -39,6 +39,17 @@ router.post('/admin/articles/save', (req,res)=>{
         categoryId:categorie
     }).then(()=>res.redirect('/admin/articles'))
 
+});
+
+router.post('/admin/articles/delete', (req,res)=>{
+    let id = req.body.id;
+
+    Article.destroy({
+        where: {
+            id:id
+        }
+    }).then(()=>res.redirect('/admin/articles'))
+
 })
 
 module.exports = router;
