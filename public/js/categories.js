@@ -1,11 +1,9 @@
 document.querySelectorAll('.deleteCategory').forEach(e=>{
-    e.addEventListener('submit', (e)=>{
-        e.preventDefault();
-        let msg = confirm('Deseja remover categoria?');
-        if(msg){
-            document.getElementById('deleteCategory').submit();
+    e.addEventListener('submit', (event)=>{
+        event.preventDefault();
+        if(confirm('Deseja remover categoria?')){
+            e.submit();
         }
     })
-
 })
 
