@@ -6,7 +6,14 @@ const Article = require('./article');
 const router = Router();
 
 router.get('/admin/articles', (req, res)=>{
-    res.render('admin/articles/index.ejs');
+    Article.findAll({
+        include: [{model: Category}]
+    }).then(articles=>{
+            res.render('admin/articles/index.ejs',{
+                articles:articles
+            });
+        });
+    //res.render('admin/articles/index.ejs');
 });
 
 router.get('/admin/articles/new', (req,res)=>{
