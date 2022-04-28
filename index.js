@@ -20,8 +20,8 @@ app.use(bodyParser.json());
 
 //conexão com banco de dados
 connection.authenticate()
-.then(()=>console.log('database connected'))
-.catch((e)=>console.log(e));
+    .then(()=>console.log('database connected'))
+    .catch((e)=>console.log(e));
 
 //Rotas secundárias
 app.use('/', routesConnections);
@@ -30,10 +30,16 @@ app.use('/', routesArticles);
 //Rota principal
 app.get('/', (req,res)=>{
 
-    Article.findAll().then(articles=>{
-        res.render('index',{
-            articles:articles
-    })});
+    Article.findAll({
+        order:[['id', 'DESC']]
+    }).then(a=>{
+        Category.findAll().then(c=>{
+            res.render('index.ejs',{
+                articles:a,
+                categories:c
+            });
+        });
+    });
 });
 
 app.listen(8080, ()=>console.log('running...'));

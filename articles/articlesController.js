@@ -59,8 +59,11 @@ router.get('/articles/:slug', (req,res)=>{
             slug:slug
         }
     }).then(a=>{
-        res.render('publics/articles/article.ejs',{
-            article:a
+        Category.findAll().then(c=>{
+            res.render('publics/articles/article.ejs',{
+                categories:c,
+                article:a
+            });
         });
     })
 })
