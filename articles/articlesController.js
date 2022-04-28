@@ -48,9 +48,9 @@ router.post('/admin/articles/delete', (req,res)=>{
         where: {
             id:id
         }
-    }).then(()=>res.redirect('/admin/articles'))
+    }).then(()=>res.redirect('/admin/articles'));
 
-})
+});
 
 router.get('/articles/:slug', (req,res)=>{
     let slug = req.params.slug;
@@ -65,7 +65,26 @@ router.get('/articles/:slug', (req,res)=>{
                 article:a
             });
         });
+    });
+});
+
+router.get('/articles-list/:categorySlug', (req,res)=>{
+    let categorySlug = req.params.categorySlug;
+
+    Category.findOne({
+        where:{
+            slug:categorySlug
+        },
+        include:[{model:Article}]
+    }).then(c=>{
+        Category.findAll().then(categories=>{
+            res.render('publics/articles/articlesByCategory.ejs',{
+                articles:c.articles,
+                categories:categories
+            })
+        })
     })
-})
+
+});
 
 module.exports = router;

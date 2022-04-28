@@ -1,10 +1,10 @@
 <nav class=" navbar navbar-expand-lg navbar-dark bg-dark">
     <a style="font-style: oblique;" class="navbar-brand" href="/">Lacerdapress</a>
-    
+
     <ul class="navbar-nav mr-auto">
         <% categories.forEach(c=>{ %>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/categories"><%= c.title %></a>
+                <a class="nav-link" href="/articles-list/<%= c.slug %>"><%= c.title %></a>
             </li>
         <% }) %>
     </ul>
