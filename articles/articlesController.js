@@ -52,4 +52,17 @@ router.post('/admin/articles/delete', (req,res)=>{
 
 })
 
+router.get('/articles/:slug', (req,res)=>{
+    let slug = req.params.slug;
+    Article.findOne({
+        where:{
+            slug:slug
+        }
+    }).then(a=>{
+        res.render('publics/articles/article.ejs',{
+            article:a
+        });
+    })
+})
+
 module.exports = router;
