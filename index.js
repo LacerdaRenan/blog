@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const {connection} = require('./database/database');
 const routesConnections = require('./categories/categoriesController');
 const routesArticles = require('./articles/articlesController');
+const routesUser = require('./user/userController');
 const Article = require('./articles/article');
 const Category = require('./categories/category');
 
@@ -26,6 +27,7 @@ connection.authenticate()
 //Rotas secundárias
 app.use('/', routesConnections);
 app.use('/', routesArticles);
+app.use('/', routesUser);
 
 //Rota principal
 app.get('/', (req,res)=>{

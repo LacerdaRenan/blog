@@ -15,4 +15,4 @@ const User = connection.define('users',{
 //Sincronizando com banco de dados
 User.sync({force:false}).then(()=>{});
 
-module.exports = Category;
+module.exports = User;
