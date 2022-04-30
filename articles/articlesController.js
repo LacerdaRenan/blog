@@ -87,4 +87,21 @@ router.get('/articles-list/:categorySlug', (req,res)=>{
 
 });
 
+router.get('/admin/edit/:id', (req,res)=>{
+    let id = req.params.id;
+
+    Article.findByPk(id).then(article=>{
+        if(!article){
+            res.redirect('/admin/articles');
+        }
+
+        Category.findAll().then(categories=>{
+            res.render('admin/articles/edit.ejs',{
+                article:article,
+                categories:categories
+            })
+        })
+    })
+});
+
 module.exports = router;
