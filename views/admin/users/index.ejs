@@ -1,0 +1,28 @@
+<%- include('../../partials/header.ejs'); %>
+<%- include('../../partials/navBar.ejs'); %>
+<body>
+    <div class="container">
+        <hr>
+        <h2>Usuários</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Email</th>
+                    <th>Criação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(u=>{ %>
+                    <tr>
+                        <td><%= u.id %></td>
+                        <td><%= u.email %></td>
+                        <td><%= u.createdAt %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+<%- include('../../partials/footer.ejs'); %>
