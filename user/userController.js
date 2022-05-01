@@ -39,8 +39,36 @@ router.post('/admin/user/new', (req,res)=>{
             res.send('nn')
         }
     })
-    
+})
 
+router.get('/login', (req,res)=>{
+    res.render('admin/users/login.ejs')
+})
+
+router.post('/authenticate', (req, res)=>{
+    let email = req.body.email;
+    let password = req.body.password;
+
+    User.findOne({
+        where:{
+            email:email
+        }
+    }).then(u=>{
+        if(u){
+            let correct = bcrypt.compareSync(password,u.password)
+            if(correct){
+                req.session.user = {
+                    id:u.id,
+                    email:u.email
+                }
+                res.json(req.session.user)
+            }else{
+                res.redirect('/login')
+            }
+        }else{
+            res.redirect('/login');
+        }
+    })
 })
 
 module.exports = router;

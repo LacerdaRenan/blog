@@ -2,10 +2,11 @@ const {Router} = require('express');
 const slugify = require('slugify');
 const Category = require('../categories/category');
 const Article = require('./article');
+const adminAuth = require('../middlewares/adminAuth')
 
 const router = Router();
 
-router.get('/admin/articles', (req, res)=>{
+router.get('/admin/articles', adminAuth, (req, res)=>{
     Article.findAll({
         include: [{model: Category}]
     }).then(articles=>{
@@ -16,7 +17,7 @@ router.get('/admin/articles', (req, res)=>{
     //res.render('admin/articles/index.ejs');
 });
 
-router.get('/admin/articles/new', (req,res)=>{
+router.get('/admin/articles/new', adminAuth, (req,res)=>{
 
     Category.findAll()
         .then(categories=>{
@@ -27,7 +28,7 @@ router.get('/admin/articles/new', (req,res)=>{
     });
 });
 
-router.post('/admin/articles/save', (req,res)=>{
+router.post('/admin/articles/save', adminAuth, (req,res)=>{
     let title = req.body.title;
     let contents = req.body.contents;
     let categorie = req.body.category;
@@ -41,7 +42,7 @@ router.post('/admin/articles/save', (req,res)=>{
 
 });
 
-router.post('/admin/articles/delete', (req,res)=>{
+router.post('/admin/articles/delete', adminAuth, (req,res)=>{
     let id = req.body.id;
 
     Article.destroy({
@@ -87,7 +88,7 @@ router.get('/articles-list/:categorySlug', (req,res)=>{
 
 });
 
-router.get('/admin/edit/:id', (req,res)=>{
+router.get('/admin/edit/:id', adminAuth, (req,res)=>{
     let id = req.params.id;
 
     Article.findByPk(id).then(article=>{

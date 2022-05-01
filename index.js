@@ -7,8 +7,14 @@ const routesUser = require('./user/userController');
 const Article = require('./articles/article');
 const Category = require('./categories/category');
 const User = require('./user/user');
+const session = require('express-session');
 
 const app = express();
+
+app.use(session({
+    secret:"qualquercoisa",
+    cookie:{maxAge:30000}
+}))
 
 //Definindo view engine
 app.set('view engine', 'ejs');
@@ -29,6 +35,25 @@ connection.authenticate()
 app.use('/', routesConnections);
 app.use('/', routesArticles);
 app.use('/', routesUser);
+
+app.get('/session', (req,res)=>{
+    req.session.treinamento = 'formação nodeJs'
+    req.session.ano = 2022
+    req.session.user={
+        usarname: 'Renan',
+        id:1
+    }
+
+    res.send('Sessão gerada!');
+})
+
+app.get('/leitura', (req,res)=>{
+    res.json({
+        treinamento: req.session.treinamento,
+        ano: req.session.ano,
+        user: req.session.user
+    })
+})
 
 //Rota principal
 app.get('/', (req,res)=>{
