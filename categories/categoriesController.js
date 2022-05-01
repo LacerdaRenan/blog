@@ -2,8 +2,9 @@ const {Router} = require('express')
 const Category = require('./category');
 const slugify = require('slugify');
 const router = Router();
+const adminAuth = require('../middlewares/adminAuth')
 
-router.get('/admin/categories', (req,res)=>{
+router.get('/admin/categories',adminAuth, (req,res)=>{
 
     Category.findAll()
         .then((data)=>{
@@ -14,11 +15,11 @@ router.get('/admin/categories', (req,res)=>{
 
 });
 
-router.get('/admin/categories/new', (req,res)=>{
+router.get('/admin/categories/new', adminAuth, (req,res)=>{
     res.render('admin/categories/new.ejs');
 });
 
-router.post('/admin/categories/save', (req,res)=>{
+router.post('/admin/categories/save', adminAuth, (req,res)=>{
     let title = req.body.title;
 
     if(!title){
@@ -32,7 +33,7 @@ router.post('/admin/categories/save', (req,res)=>{
 
 });
 
-router.post('/admin/categories/delete',(req,res)=>{
+router.post('/admin/categories/delete', adminAuth, (req,res)=>{
     let id = req.body.id;
     Category.destroy({
         where:{
@@ -43,7 +44,7 @@ router.post('/admin/categories/delete',(req,res)=>{
     })
 })
 
-router.get("/admin/categories/edit/:id", (req,res)=>{
+router.get("/admin/categories/edit/:id", adminAuth, (req,res)=>{
     let id = req.params.id;
     Category.findByPk(id)
         .then(data=>{
@@ -56,7 +57,7 @@ router.get("/admin/categories/edit/:id", (req,res)=>{
         })
 })
 
-router.post('/admin/categories/update', (req,res)=>{
+router.post('/admin/categories/update', adminAuth, (req,res)=>{
     let id = req.body.id;
     let title = req.body.title;
     let slug = slugify(title);

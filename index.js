@@ -13,7 +13,7 @@ const app = express();
 
 app.use(session({
     secret:"qualquercoisa",
-    cookie:{maxAge:30000}
+    cookie:{maxAge:60000}
 }))
 
 //Definindo view engine

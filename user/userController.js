@@ -1,10 +1,11 @@
 const {Router} = require('express');
 const User = require('./user');
 const bcrypt = require('bcryptjs');
+const adminAuth = require('../middlewares/adminAuth');
 
 let router = Router();
 
-router.get('/admin/users', (req,res)=>{
+router.get('/admin/users', adminAuth, (req,res)=>{
     User.findAll().then(users=>{
         res.render('admin/users/index.ejs',{
             users:users
@@ -33,7 +34,7 @@ router.post('/admin/user/new', (req,res)=>{
                 email:email,
                 password:hash
             }).then(()=>{
-                res.redirect('/');
+                res.redirect('/login');
             })
         }else{
             res.send('nn')
@@ -61,7 +62,7 @@ router.post('/authenticate', (req, res)=>{
                     id:u.id,
                     email:u.email
                 }
-                res.json(req.session.user)
+                res.redirect('/admin/categories');
             }else{
                 res.redirect('/login')
             }
@@ -69,6 +70,11 @@ router.post('/authenticate', (req, res)=>{
             res.redirect('/login');
         }
     })
+})
+
+router.get('/logout', (req, res)=>{
+    req.session.user=undefined;
+    res.redirect('/');
 })
 
 module.exports = router;
