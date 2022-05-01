@@ -8,7 +8,22 @@ router.get('/admin/users', (req,res)=>{
 })
 
 router.get('/admin/user/create', (req,res)=>{
-    res.render('admin/users/createUser.ejs');
+    res.render('admin/users/new.ejs');
+})
+
+router.post('/admin/user/new', (req,res)=>{
+    let email = req.body.email;
+    let password = req.body.password;
+    
+    res.json({email, password});
+    
+    User.create({
+        email:email,
+        password:password
+    }).then(()=>{
+        res.redirect('/');
+    })
+
 })
 
 module.exports = router;

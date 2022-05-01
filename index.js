@@ -6,6 +6,7 @@ const routesArticles = require('./articles/articlesController');
 const routesUser = require('./user/userController');
 const Article = require('./articles/article');
 const Category = require('./categories/category');
+const User = require('./user/user');
 
 const app = express();
 
